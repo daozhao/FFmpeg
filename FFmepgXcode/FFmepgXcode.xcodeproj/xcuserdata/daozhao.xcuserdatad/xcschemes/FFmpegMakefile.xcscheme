@@ -52,6 +52,24 @@
       <PathRunnable
          FilePath = "/Users/daozhao/Documents/SourceCode/github.com/FFmpeg/ffmpeg_g">
       </PathRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-i rtsp://127.0.0.1:8554/testStream"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-vcodec copy "
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-f rtp "
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "rtp://192.168.2.162:1234"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
