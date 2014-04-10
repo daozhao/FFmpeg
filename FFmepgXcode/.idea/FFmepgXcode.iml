@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="CIDR_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$/../COPYING.GPLv2">
+      <sourceFolder url="file://$MODULE_DIR$/../COPYING.GPLv2" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../COPYING.GPLv3">
+      <sourceFolder url="file://$MODULE_DIR$/../COPYING.GPLv3" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../COPYING.LGPLv2.1">
+      <sourceFolder url="file://$MODULE_DIR$/../COPYING.LGPLv2.1" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../COPYING.LGPLv3">
+      <sourceFolder url="file://$MODULE_DIR$/../COPYING.LGPLv3" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../CREDITS">
+      <sourceFolder url="file://$MODULE_DIR$/../CREDITS" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../Changelog">
+      <sourceFolder url="file://$MODULE_DIR$/../Changelog" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$/../INSTALL">
+      <sourceFolder url="file://$MODULE_DIR$/../INSTALL" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../LICENSE">
+      <sourceFolder url="file://$MODULE_DIR$/../LICENSE" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../MAINTAINERS">
+      <sourceFolder url="file://$MODULE_DIR$/../MAINTAINERS" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../Makefile">
+      <sourceFolder url="file://$MODULE_DIR$/../Makefile" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../README">
+      <sourceFolder url="file://$MODULE_DIR$/../README" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../RELEASE">
+      <sourceFolder url="file://$MODULE_DIR$/../RELEASE" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../VERSION">
+      <sourceFolder url="file://$MODULE_DIR$/../VERSION" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../arch.mak">
+      <sourceFolder url="file://$MODULE_DIR$/../arch.mak" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../cmdutils.c">
+      <sourceFolder url="file://$MODULE_DIR$/../cmdutils.c" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../cmdutils.h">
+      <sourceFolder url="file://$MODULE_DIR$/../cmdutils.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../cmdutils_common_opts.h">
+      <sourceFolder url="file://$MODULE_DIR$/../cmdutils_common_opts.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../cmdutils_opencl.c">
+      <sourceFolder url="file://$MODULE_DIR$/../cmdutils_opencl.c" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../common.mak">
+      <sourceFolder url="file://$MODULE_DIR$/../common.mak" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../compat">
+      <sourceFolder url="file://$MODULE_DIR$/../compat" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../config.asm">
+      <sourceFolder url="file://$MODULE_DIR$/../config.asm" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../config.fate">
+      <sourceFolder url="file://$MODULE_DIR$/../config.fate" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../config.h">
+      <sourceFolder url="file://$MODULE_DIR$/../config.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../config.log">
+      <sourceFolder url="file://$MODULE_DIR$/../config.log" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../config.mak">
+      <sourceFolder url="file://$MODULE_DIR$/../config.mak" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../configure">
+      <sourceFolder url="file://$MODULE_DIR$/../configure" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../doc">
+      <sourceFolder url="file://$MODULE_DIR$/../doc" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../ffmpeg.c">
+      <sourceFolder url="file://$MODULE_DIR$/../ffmpeg.c" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../ffmpeg.h">
+      <sourceFolder url="file://$MODULE_DIR$/../ffmpeg.h" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../ffmpeg_filter.c">
+      <sourceFolder url="file://$MODULE_DIR$/../ffmpeg_filter.c" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../ffmpeg_opt.c">
+      <sourceFolder url="file://$MODULE_DIR$/../ffmpeg_opt.c" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../ffmpeg_vdpau.c">
+      <sourceFolder url="file://$MODULE_DIR$/../ffmpeg_vdpau.c" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../ffplay.c">
+      <sourceFolder url="file://$MODULE_DIR$/../ffplay.c" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../ffprobe.c">
+      <sourceFolder url="file://$MODULE_DIR$/../ffprobe.c" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../ffserver.c">
+      <sourceFolder url="file://$MODULE_DIR$/../ffserver.c" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../libavcodec">
+      <sourceFolder url="file://$MODULE_DIR$/../libavcodec" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../libavdevice">
+      <sourceFolder url="file://$MODULE_DIR$/../libavdevice" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../libavfilter">
+      <sourceFolder url="file://$MODULE_DIR$/../libavfilter" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../libavformat">
+      <sourceFolder url="file://$MODULE_DIR$/../libavformat" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../libavresample">
+      <sourceFolder url="file://$MODULE_DIR$/../libavresample" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../libavutil">
+      <sourceFolder url="file://$MODULE_DIR$/../libavutil" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../libpostproc">
+      <sourceFolder url="file://$MODULE_DIR$/../libpostproc" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../library.mak">
+      <sourceFolder url="file://$MODULE_DIR$/../library.mak" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../libswresample">
+      <sourceFolder url="file://$MODULE_DIR$/../libswresample" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../libswscale">
+      <sourceFolder url="file://$MODULE_DIR$/../libswscale" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../presets">
+      <sourceFolder url="file://$MODULE_DIR$/../presets" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../tools">
+      <sourceFolder url="file://$MODULE_DIR$/../tools" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../version.sh">
+      <sourceFolder url="file://$MODULE_DIR$/../version.sh" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+
