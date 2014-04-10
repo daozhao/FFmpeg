@@ -774,10 +774,17 @@ static int open_input_file(OptionsContext *o, const char *filename)
             exit_program(1);
         }
     }
-
+#ifdef DEBUG
+    av_log(NULL,AV_LOG_INFO,"func:%s(%d) filename:%s ", __func__,__LINE__,filename);
+#endif
+    
     if (!strcmp(filename, "-"))
         filename = "pipe:";
 
+#ifdef DEBUG
+    av_log(NULL,AV_LOG_INFO,"func:%s(%d) filename:%s ", __func__,__LINE__,filename);
+#endif
+    
     stdin_interaction &= strncmp(filename, "pipe:", 5) &&
                          strcmp(filename, "/dev/stdin");
 

@@ -104,6 +104,8 @@
 
 #include "libavutil/avassert.h"
 
+//#define DEBUG 1
+
 const char program_name[] = "ffmpeg";
 const int program_birth_year = 2000;
 
