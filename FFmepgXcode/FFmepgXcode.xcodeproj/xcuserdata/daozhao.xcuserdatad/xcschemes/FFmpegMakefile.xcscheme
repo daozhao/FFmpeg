@@ -54,15 +54,27 @@
       </PathRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-i rtsp://127.0.0.1:8554/testStream"
+            argument = "-i"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-vcodec copy "
+            argument = "rtsp://192.168.2.161/"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-f rtp "
+            argument = "-vcodec"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "copy"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-f"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "rtp"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
