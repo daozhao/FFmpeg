@@ -18,7 +18,7 @@
  * License along with FFmpeg; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
-
+//???: 这个文件应该是处理RTP包输入的信息，解包等。
 #include "libavutil/mathematics.h"
 #include "libavutil/avstring.h"
 #include "libavutil/time.h"
@@ -355,7 +355,7 @@ int ff_rtp_check_and_send_back_rr(RTPDemuxContext *s, URLContext *fd,
     }
     return 0;
 }
-
+//???: 这个应该是转发RTP包信息。
 void ff_rtp_send_punch_packets(URLContext *rtp_handle)
 {
     AVIOContext *pb;
@@ -365,7 +365,7 @@ void ff_rtp_send_punch_packets(URLContext *rtp_handle)
     /* Send a small RTP packet */
     if (avio_open_dyn_buf(&pb) < 0)
         return;
-
+//???: 这里是写RTP包头信息，不清楚为什么信息都写0
     avio_w8(pb, (RTP_VERSION << 6));
     avio_w8(pb, 0); /* Payload type */
     avio_wb16(pb, 0); /* Seq */
@@ -423,7 +423,7 @@ static int find_missing_packets(RTPDemuxContext *s, uint16_t *first_missing,
     *first_missing = next_seq;
     return 1;
 }
-
+//???: 发生RTCP包。
 int ff_rtp_send_rtcp_feedback(RTPDemuxContext *s, URLContext *fd,
                               AVIOContext *avio)
 {
@@ -576,7 +576,7 @@ static void finalize_packet(RTPDemuxContext *s, AVPacket *pkt, uint32_t timestam
     pkt->pts     = s->unwrapped_timestamp + s->range_start_offset -
                    s->base_timestamp;
 }
-
+//???: 分析RTP包信息，读取内容。
 static int rtp_parse_packet_internal(RTPDemuxContext *s, AVPacket *pkt,
                                      const uint8_t *buf, int len)
 {
@@ -813,6 +813,7 @@ static int rtp_parse_one_packet(RTPDemuxContext *s, AVPacket *pkt,
  * @return 0 if a packet is returned, 1 if a packet is returned and more can follow
  * (use buf as NULL to read the next). -1 if no packet (error or no more packet).
  */
+//???: 解析RTP包
 int ff_rtp_parse_packet(RTPDemuxContext *s, AVPacket *pkt,
                         uint8_t **bufptr, int len)
 {

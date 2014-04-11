@@ -272,7 +272,7 @@ static void rtp_parse_addr_list(URLContext *h, char *buf,
  */
 
 static int rtp_open(URLContext *h, const char *uri, int flags)
-{
+{ //???: 这里是打开rtp连接的函数，发送rtp就是用这个函数进行打开，不过应该不用直接调用这个函数，应该是使用avio_open2进行打开。
     RTPContext *s = h->priv_data;
     int rtp_port, rtcp_port,
         ttl, connect,
@@ -333,6 +333,7 @@ static int rtp_open(URLContext *h, const char *uri, int flags)
         build_udp_url(buf, sizeof(buf),
                       hostname, rtp_port, local_rtp_port, ttl, max_packet_size,
                       connect, include_sources, exclude_sources);
+        //???: 这里递归调用的ffurl_open,不过不会循环调用的，因为处理open的指针函数已经不一样了，转为udp_open函数了。
         if (ffurl_open(&s->rtp_hd, buf, flags, &h->interrupt_callback, NULL) < 0)
             goto fail;
         local_rtp_port = ff_udp_get_local_port(s->rtp_hd);
@@ -375,7 +376,7 @@ static int rtp_open(URLContext *h, const char *uri, int flags)
         ffurl_close(s->rtcp_hd);
     return AVERROR(EIO);
 }
-
+//???: RTP包读取。
 static int rtp_read(URLContext *h, uint8_t *buf, int size)
 {
     RTPContext *s = h->priv_data;
@@ -417,7 +418,7 @@ static int rtp_read(URLContext *h, uint8_t *buf, int size)
     }
     return len;
 }
-
+//???: 写RTP包
 static int rtp_write(URLContext *h, const uint8_t *buf, int size)
 {
     RTPContext *s = h->priv_data;

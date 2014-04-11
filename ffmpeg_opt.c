@@ -751,7 +751,7 @@ static void dump_attachment(AVStream *st, const char *filename)
     avio_flush(out);
     avio_close(out);
 }
-
+//???: 打开输入的file.
 static int open_input_file(OptionsContext *o, const char *filename)
 {
     InputFile *f;
@@ -865,6 +865,7 @@ static int open_input_file(OptionsContext *o, const char *filename)
 
     /* If not enough info to get the stream parameters, we decode the
        first frames to get it. (used in mpeg case for example) */
+    //???: 这里开始读流RTP包信息。
     ret = avformat_find_stream_info(ic, opts);
     if (ret < 0) {
         av_log(NULL, AV_LOG_FATAL, "%s: could not find codec parameters\n", filename);
@@ -1591,8 +1592,10 @@ static int read_ffserver_streams(OptionsContext *o, AVFormatContext *s, const ch
         st    = ost->st;
         avctx = st->codec;
         ost->enc = codec;
-
-        // FIXME: a more elegant solution is needed
+//???: nihsfs
+//!!!: nihsfs
+        //INFO: fssf
+        //FIXME: a more elegant solution is needed
         memcpy(st, ic->streams[i], sizeof(AVStream));
         st->cur_dts = 0;
         st->info = av_malloc(sizeof(*st->info));
@@ -1666,7 +1669,7 @@ static int configure_complex_filters(void)
             return ret;
     return 0;
 }
-
+//???: 打开输出的file，
 static int open_output_file(OptionsContext *o, const char *filename)
 {
     AVFormatContext *oc;
@@ -1990,6 +1993,7 @@ loop_end:
         assert_file_overwrite(filename);
 
         /* open the file */
+        //???: 这里是调用ffmpeg库的函数进行文件打开。之前的准备工作不清楚搞什么飞机。
         if ((err = avio_open2(&oc->pb, filename, AVIO_FLAG_WRITE,
                               &oc->interrupt_callback,
                               &of->opts)) < 0) {
@@ -2639,6 +2643,7 @@ int ffmpeg_parse_options(int argc, char **argv)
     }
 
     /* open input files */
+    //???: 打开输入文件。 最后一个参数是指针函数，具体指定什么函数进行打开这个文件
     ret = open_files(&octx.groups[GROUP_INFILE], "input", open_input_file);
     if (ret < 0) {
         av_log(NULL, AV_LOG_FATAL, "Error opening input files: ");
@@ -2646,6 +2651,7 @@ int ffmpeg_parse_options(int argc, char **argv)
     }
 
     /* open output files */
+    //???: 打开输出文件。最后一个参数是指针函数，具体指定什么函数进行打开这个文件.
     ret = open_files(&octx.groups[GROUP_OUTFILE], "output", open_output_file);
     if (ret < 0) {
         av_log(NULL, AV_LOG_FATAL, "Error opening output files: ");

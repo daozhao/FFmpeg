@@ -1051,7 +1051,7 @@ void ff_rtsp_skip_packet(AVFormatContext *s)
         len -= len1;
     }
 }
-
+//???: 这个是读取rtsp返回的内容。
 int ff_rtsp_read_reply(AVFormatContext *s, RTSPMessageHeader *reply,
                        unsigned char **content_ptr,
                        int return_on_interleaved_data, const char *method)
@@ -1264,7 +1264,7 @@ int ff_rtsp_send_cmd_async(AVFormatContext *s, const char *method,
 {
     return rtsp_send_cmd_with_content_async(s, method, url, headers, NULL, 0);
 }
-
+//???: 发送RTSP指令的地方。
 int ff_rtsp_send_cmd(AVFormatContext *s, const char *method, const char *url,
                      const char *headers, RTSPMessageHeader *reply,
                      unsigned char **content_ptr)
@@ -1311,7 +1311,7 @@ retry:
 
     return 0;
 }
-
+//???: 建立setup请求的地方。
 int ff_rtsp_make_setup_request(AVFormatContext *s, const char *host, int port,
                               int lower_transport, const char *real_challenge)
 {
@@ -1560,7 +1560,7 @@ void ff_rtsp_close_connections(AVFormatContext *s)
     ffurl_close(rt->rtsp_hd);
     rt->rtsp_hd = rt->rtsp_hd_out = NULL;
 }
-
+//???: 连接rtsp地方。
 int ff_rtsp_connect(AVFormatContext *s)
 {
     RTSPState *rt = s->priv_data;
@@ -1783,6 +1783,7 @@ redirect:
     rt->state = RTSP_STATE_IDLE;
     rt->seek_timestamp = 0; /* default is to start stream at position zero */
     return 0;
+//???: 连接错误的的时候这里做close处理。
  fail:
     ff_rtsp_close_streams(s);
     ff_rtsp_close_connections(s);
@@ -1799,6 +1800,7 @@ redirect:
 #endif /* CONFIG_RTSP_DEMUXER || CONFIG_RTSP_MUXER */
 
 #if CONFIG_RTPDEC
+//???: 这里应该是RTP包解码过程。
 static int udp_read_packet(AVFormatContext *s, RTSPStream **prtsp_st,
                            uint8_t *buf, int buf_size, int64_t wait_end)
 {
@@ -1932,6 +1934,7 @@ static int pick_stream(AVFormatContext *s, RTSPStream **rtsp_st,
     return AVERROR(EAGAIN);
 }
 
+//???: 这里是读取rtsp网络包的过程，包括读取RTP包过程。
 int ff_rtsp_fetch_packet(AVFormatContext *s, AVPacket *pkt)
 {
     RTSPState *rt = s->priv_data;
@@ -2000,11 +2003,11 @@ redo:
     default:
 #if CONFIG_RTSP_DEMUXER
     case RTSP_LOWER_TRANSPORT_TCP:
-        len = ff_rtsp_tcp_read_packet(s, &rtsp_st, rt->recvbuf, RECVBUF_SIZE);
+        len = ff_rtsp_tcp_read_packet(s, &rtsp_st, rt->recvbuf, RECVBUF_SIZE); //???: 这里应该是读取rtp over rtsp的包的过程。
         break;
 #endif
     case RTSP_LOWER_TRANSPORT_UDP:
-    case RTSP_LOWER_TRANSPORT_UDP_MULTICAST:
+    case RTSP_LOWER_TRANSPORT_UDP_MULTICAST:  //???: 这里应该是读取RTP包过程。
         len = udp_read_packet(s, &rtsp_st, rt->recvbuf, RECVBUF_SIZE, wait_end);
         if (len > 0 && rtsp_st->transport_priv && rt->transport == RTSP_TRANSPORT_RTP)
             ff_rtp_check_and_send_back_rr(rtsp_st->transport_priv, rtsp_st->rtp_handle, NULL, len);

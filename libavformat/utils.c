@@ -738,7 +738,7 @@ static int update_wrap_reference(AVFormatContext *s, AVStream *st, int stream_in
     }
     return 1;
 }
-
+//???: 读取文件或者网络的数据包。
 int ff_read_packet(AVFormatContext *s, AVPacket *pkt)
 {
     int ret, i, err;
@@ -764,6 +764,7 @@ int ff_read_packet(AVFormatContext *s, AVPacket *pkt)
         pkt->data = NULL;
         pkt->size = 0;
         av_init_packet(pkt);
+        //???: 根据媒体类型读取数据包，read_packet是函数指针，如果是rtsp类型的话是指向rtsp_read_packet。
         ret = s->iformat->read_packet(s, pkt);
         if (ret < 0) {
             if (!pktl || ret == AVERROR(EAGAIN))
@@ -1542,7 +1543,7 @@ static int read_frame_internal(AVFormatContext *s, AVPacket *pkt)
 
     return ret;
 }
-
+//???: 这个是读取帧Frame数据。
 int av_read_frame(AVFormatContext *s, AVPacket *pkt)
 {
     const int genpts = s->flags & AVFMT_FLAG_GENPTS;

@@ -773,7 +773,7 @@ static int resetup_tcp(AVFormatContext *s)
     return ff_rtsp_make_setup_request(s, host, port, RTSP_LOWER_TRANSPORT_TCP,
                                       rt->real_challenge);
 }
-
+//???: 这里读取rtsp 包信息，应该是读取RTP包信息.
 static int rtsp_read_packet(AVFormatContext *s, AVPacket *pkt)
 {
     RTSPState *rt = s->priv_data;

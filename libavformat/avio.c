@@ -193,7 +193,7 @@ fail:
 
 int ffurl_connect(URLContext *uc, AVDictionary **options)
 {
-    int err =
+    int err =   //???: url_open2 和url_open 是指针函数。
         uc->prot->url_open2 ? uc->prot->url_open2(uc,
                                                   uc->filename,
                                                   uc->flags,
@@ -269,13 +269,13 @@ int ffurl_alloc(URLContext **puc, const char *filename, int flags,
 int ffurl_open(URLContext **puc, const char *filename, int flags,
                const AVIOInterruptCB *int_cb, AVDictionary **options)
 {
-    int ret = ffurl_alloc(puc, filename, flags, int_cb);
+    int ret = ffurl_alloc(puc, filename, flags, int_cb); //???: 这里是查找对于文件或者url的处理方式。
     if (ret)
         return ret;
     if (options && (*puc)->prot->priv_data_class &&
         (ret = av_opt_set_dict((*puc)->priv_data, options)) < 0)
         goto fail;
-    ret = ffurl_connect(*puc, options);
+    ret = ffurl_connect(*puc, options);  //???: 根据对于的文件或者url进行文件打开。
     if (!ret)
         return 0;
 fail:

@@ -766,7 +766,7 @@ static int udp_open(URLContext *h, const char *uri, int flags)
         av_freep(&exclude_sources[i]);
     return AVERROR(EIO);
 }
-
+//???: UDP读取数据。
 static int udp_read(URLContext *h, uint8_t *buf, int size)
 {
     UDPContext *s = h->priv_data;
@@ -825,7 +825,7 @@ static int udp_read(URLContext *h, uint8_t *buf, int size)
 
     return ret < 0 ? ff_neterrno() : ret;
 }
-
+//???: UDP写数据。
 static int udp_write(URLContext *h, const uint8_t *buf, int size)
 {
     UDPContext *s = h->priv_data;

@@ -24,7 +24,7 @@
  * @brief H.264 packetization
  * @author Luca Abeni <lucabe72@email.it>
  */
-
+//???: 发送H264包。
 #include "avformat.h"
 #include "avc.h"
 #include "rtpenc.h"
@@ -43,7 +43,7 @@ static const uint8_t *avc_mp4_find_startcode(const uint8_t *start, const uint8_t
 
     return start + res;
 }
-
+//???: 这个函数注意判断包的大小，是否需要分开多个包发送。
 static void nal_send(AVFormatContext *s1, const uint8_t *buf, int size, int last)
 {
     RTPMuxContext *s = s1->priv_data;

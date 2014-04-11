@@ -521,7 +521,7 @@ static int compute_pkt_fields2(AVFormatContext *s, AVStream *st, AVPacket *pkt)
  * are set in the callers.
  */
 static int write_packet(AVFormatContext *s, AVPacket *pkt)
-{
+{  //???: 这是写包函数。
     int ret, did_split;
 
     if (s->output_ts_offset) {
@@ -566,7 +566,7 @@ static int write_packet(AVFormatContext *s, AVPacket *pkt)
         ret = s->oformat->write_uncoded_frame(s, pkt->stream_index, &frame, 0);
         av_frame_free(&frame);
     } else {
-        ret = s->oformat->write_packet(s, pkt);
+        ret = s->oformat->write_packet(s, pkt);  //???: 这里是具体写frame数据的地方，如果是RTP接口，调用rpt_write_packet函数。
     }
 
     if (s->flush_packets && s->pb && ret >= 0 && s->flags & AVFMT_FLAG_FLUSH_PACKETS)
@@ -829,7 +829,7 @@ static int interleave_packet(AVFormatContext *s, AVPacket *out, AVPacket *in, in
     } else
         return ff_interleave_packet_per_dts(s, out, in, flush);
 }
-
+//???: 这个函数是给应用层调用的写包函数。
 int av_interleaved_write_frame(AVFormatContext *s, AVPacket *pkt)
 {
     int ret, flush = 0;

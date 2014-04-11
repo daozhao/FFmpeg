@@ -18,7 +18,7 @@
  * License along with FFmpeg; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
-
+//???: 这个应该是RTP包 组包的部分。
 #include "avformat.h"
 #include "mpegts.h"
 #include "internal.h"
@@ -83,7 +83,7 @@ static int is_supported(enum AVCodecID id)
         return 0;
     }
 }
-
+//???: 写RTP包头信息。
 static int rtp_write_header(AVFormatContext *s1)
 {
     RTPMuxContext *s = s1->priv_data;
@@ -261,6 +261,7 @@ fail:
     return AVERROR(EINVAL);
 }
 
+//???: 发生RTCP报告。
 /* send an rtcp sender report packet */
 static void rtcp_send_sr(AVFormatContext *s1, int64_t ntp_time, int bye)
 {
@@ -306,6 +307,7 @@ static void rtcp_send_sr(AVFormatContext *s1, int64_t ntp_time, int bye)
     avio_flush(s1->pb);
 }
 
+//???: 发送RTP包。写RTP包头的信息，应该是组织RTP包的最好步骤，不过暂时未看到发生socket部分。
 /* send an rtp packet. sequence number is incremented, but the caller
    must update the timestamp itself */
 void ff_rtp_send_data(AVFormatContext *s1, const uint8_t *buf1, int len, int m)
@@ -486,7 +488,7 @@ static int rtp_send_ilbc(AVFormatContext *s1, const uint8_t *buf, int size)
     }
     return 0;
 }
-
+//???: 这里是给write_packet写包的函数。估计是一个frame数据。会根据不同的媒体类型调用不同的写包方式。
 static int rtp_write_packet(AVFormatContext *s1, AVPacket *pkt)
 {
     RTPMuxContext *s = s1->priv_data;
@@ -549,7 +551,7 @@ static int rtp_write_packet(AVFormatContext *s1, AVPacket *pkt)
         rtp_send_mpegts_raw(s1, pkt->data, size);
         break;
     case AV_CODEC_ID_H264:
-        ff_rtp_send_h264(s1, pkt->data, size);
+        ff_rtp_send_h264(s1, pkt->data, size);  //???: 这里是调用h264的调用写包方式。
         break;
     case AV_CODEC_ID_H263:
         if (s->flags & FF_RTP_FLAG_RFC2190) {

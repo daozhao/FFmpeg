@@ -657,7 +657,7 @@ static void write_frame(AVFormatContext *s, AVPacket *pkt, OutputStream *ost)
               );
     }
 
-    ret = av_interleaved_write_frame(s, pkt);
+    ret = av_interleaved_write_frame(s, pkt);  //???: 调用ffmpeg库写Frame数据。
     if (ret < 0) {
         print_error("av_interleaved_write_frame()", ret);
         main_return_code = 1;
@@ -1465,7 +1465,7 @@ static int check_output_constraints(InputStream *ist, OutputStream *ost)
 
     return 1;
 }
-
+//???: 复制视频数据包。
 static void do_streamcopy(InputStream *ist, OutputStream *ost, const AVPacket *pkt)
 {
     OutputFile *of = output_files[ost->file_index];
@@ -1571,7 +1571,7 @@ static void do_streamcopy(InputStream *ist, OutputStream *ost, const AVPacket *p
         opkt.flags |= AV_PKT_FLAG_KEY;
     }
 
-    write_frame(of->ctx, &opkt, ost);
+    write_frame(of->ctx, &opkt, ost);  //???: 这里是复制码流，写Frame数据。
     ost->st->codec->frame_number++;
 }
 
@@ -1908,6 +1908,7 @@ out:
 }
 
 /* pkt = NULL means EOF (needed to flush decoder buffers) */
+//???: 输出数据包。
 static int output_packet(InputStream *ist, const AVPacket *pkt)
 {
     int ret = 0, i;
@@ -2010,6 +2011,7 @@ static int output_packet(InputStream *ist, const AVPacket *pkt)
 
     /* handle stream copy */
     if (!ist->decoding_needed) {
+        //???: 这里是不需要解码，直接复制流编码。
         ist->dts = ist->next_dts;
         switch (ist->st->codec->codec_type) {
         case AVMEDIA_TYPE_AUDIO:
@@ -2041,7 +2043,7 @@ static int output_packet(InputStream *ist, const AVPacket *pkt)
         if (!check_output_constraints(ist, ost) || ost->encoding_needed)
             continue;
 
-        do_streamcopy(ist, ost, pkt);
+        do_streamcopy(ist, ost, pkt); //???: 这里复制码流。
     }
 
     return 0;
@@ -2943,6 +2945,7 @@ static int check_keyboard_interaction(int64_t cur_time)
 }
 
 #if HAVE_PTHREADS
+//???: 多个文件输入的时候，这个线程读取多输入文件数据。各种需要细心看看，因为可以确认多个文件输入是同时工作的。
 static void *input_thread(void *arg)
 {
     InputFile *f = arg;
@@ -3011,7 +3014,7 @@ static void free_input_threads(void)
         av_fifo_free(f->fifo);
     }
 }
-
+//???: 初始化输入线程。
 static int init_input_threads(void)
 {
     int i, ret;
@@ -3067,7 +3070,7 @@ static int get_input_packet_mt(InputFile *f, AVPacket *pkt)
     return ret;
 }
 #endif
-
+//???: 读取输入文件的视频包信息。
 static int get_input_packet(InputFile *f, AVPacket *pkt)
 {
     if (f->rate_emu) {
@@ -3082,10 +3085,11 @@ static int get_input_packet(InputFile *f, AVPacket *pkt)
     }
 
 #if HAVE_PTHREADS
+    //???: 这个是多个输入文件的时候，同时读取多个输入文件的包数据，
     if (nb_input_files > 1)
         return get_input_packet_mt(f, pkt);
 #endif
-    return av_read_frame(f->ctx, pkt);
+    return av_read_frame(f->ctx, pkt);   //???: 这里是读取输入文件的帧Frame数据。调用的是ffmpeg的库函数。
 }
 
 static int got_eagain(void)
@@ -3113,6 +3117,7 @@ static void reset_eagain(void)
  *   this function should be called again
  * - AVERROR_EOF -- this function should not be called again
  */
+//???: 处理输入文件数据包输入的信息。
 static int process_input(int file_index)
 {
     InputFile *ifile = input_files[file_index];
@@ -3128,7 +3133,7 @@ static int process_input(int file_index)
         ifile->eagain = 1;
         return ret;
     }
-    if (ret < 0) {
+    if (ret < 0) {  //???: 处理读取包错误。
         if (ret != AVERROR_EOF) {
             print_error(is->filename, ret);
             if (exit_on_error)
@@ -3291,9 +3296,9 @@ static int process_input(int file_index)
                av_ts2str(input_files[ist->file_index]->ts_offset),
                av_ts2timestr(input_files[ist->file_index]->ts_offset, &AV_TIME_BASE_Q));
     }
-
+//???: 这里估计是添加字幕。
     sub2video_heartbeat(ist, pkt.pts);
-
+//???: 输出视频包。
     ret = output_packet(ist, &pkt);
     if (ret < 0) {
         av_log(NULL, AV_LOG_ERROR, "Error while decoding stream #%d:%d: %s\n",
@@ -3361,6 +3366,7 @@ static int transcode_from_filter(FilterGraph *graph, InputStream **best_ist)
  *
  * @return  0 for success, <0 for error
  */
+//???: 转码步骤
 static int transcode_step(void)
 {
     OutputStream *ost;
@@ -3387,7 +3393,7 @@ static int transcode_step(void)
         av_assert0(ost->source_index >= 0);
         ist = input_streams[ost->source_index];
     }
-
+    //???: 处理输入文件数据，主要是读取帧frame数据，并转码和输出到文件或者网络。
     ret = process_input(ist->file_index);
     if (ret == AVERROR(EAGAIN)) {
         if (input_files[ist->file_index]->eagain)
@@ -3403,6 +3409,7 @@ static int transcode_step(void)
 /*
  * The following code is the main loop of the file converter
  */
+//???: 这里是转码主循环。
 static int transcode(void)
 {
     int ret, i;
@@ -3598,6 +3605,7 @@ int main(int argc, char **argv)
     term_init();
 
     /* parse options and open all input/output files */
+    //???: 分析选项，并打开输入文件和输出文件
     ret = ffmpeg_parse_options(argc, argv);
     if (ret < 0)
         exit_program(1);
@@ -3620,6 +3628,7 @@ int main(int argc, char **argv)
 //     }
 
     current_time = ti = getutime();
+    //???: 这里是转码主循环。
     if (transcode() < 0)
         exit_program(1);
     ti = getutime() - ti;

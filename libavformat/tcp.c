@@ -55,7 +55,7 @@ static const AVClass tcp_context_class = {
     .option     = options,
     .version    = LIBAVUTIL_VERSION_INT,
 };
-
+//???: TCP打开。
 /* return non zero if error */
 static int tcp_open(URLContext *h, const char *uri, int flags)
 {
@@ -161,7 +161,7 @@ static int tcp_open(URLContext *h, const char *uri, int flags)
     freeaddrinfo(ai);
     return ret;
 }
-
+//???: TCP读取
 static int tcp_read(URLContext *h, uint8_t *buf, int size)
 {
     TCPContext *s = h->priv_data;
@@ -175,7 +175,7 @@ static int tcp_read(URLContext *h, uint8_t *buf, int size)
     ret = recv(s->fd, buf, size, 0);
     return ret < 0 ? ff_neterrno() : ret;
 }
-
+//???: TCP写数据。
 static int tcp_write(URLContext *h, const uint8_t *buf, int size)
 {
     TCPContext *s = h->priv_data;
