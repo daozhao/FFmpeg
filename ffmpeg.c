@@ -3117,7 +3117,8 @@ static void reset_eagain(void)
  *   this function should be called again
  * - AVERROR_EOF -- this function should not be called again
  */
-//???: 处理输入文件数据包输入的信息。
+//???: 处理输入文件数据包输入的信息。转码并输出到文件或者网络
+//???:  这个函数重点查看。
 static int process_input(int file_index)
 {
     InputFile *ifile = input_files[file_index];
@@ -3127,7 +3128,7 @@ static int process_input(int file_index)
     int ret, i, j;
 
     is  = ifile->ctx;
-    ret = get_input_packet(ifile, &pkt);
+    ret = get_input_packet(ifile, &pkt); //???: 读取输入文件的数据包。
 
     if (ret == AVERROR(EAGAIN)) {
         ifile->eagain = 1;
@@ -3432,7 +3433,7 @@ static int transcode(void)
     if ((ret = init_input_threads()) < 0)
         goto fail;
 #endif
-
+    //???: 主运行循环。
     while (!received_sigterm) {
         int64_t cur_time= av_gettime();
 

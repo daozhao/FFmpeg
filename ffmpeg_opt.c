@@ -775,14 +775,14 @@ static int open_input_file(OptionsContext *o, const char *filename)
         }
     }
 #ifdef DEBUG
-    av_log(NULL,AV_LOG_INFO,"func:%s(%d) filename:%s ", __func__,__LINE__,filename);
+    av_log(NULL,AV_LOG_INFO,"func:%s(%d) filename:%s \n", __func__,__LINE__,filename);
 #endif
     
     if (!strcmp(filename, "-"))
         filename = "pipe:";
 
 #ifdef DEBUG
-    av_log(NULL,AV_LOG_INFO,"func:%s(%d) filename:%s ", __func__,__LINE__,filename);
+    av_log(NULL,AV_LOG_INFO,"func:%s(%d) filename:%s \n", __func__,__LINE__,filename);
 #endif
     
     stdin_interaction &= strncmp(filename, "pipe:", 5) &&
@@ -1592,9 +1592,6 @@ static int read_ffserver_streams(OptionsContext *o, AVFormatContext *s, const ch
         st    = ost->st;
         avctx = st->codec;
         ost->enc = codec;
-//???: nihsfs
-//!!!: nihsfs
-        //INFO: fssf
         //FIXME: a more elegant solution is needed
         memcpy(st, ic->streams[i], sizeof(AVStream));
         st->cur_dts = 0;

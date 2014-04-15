@@ -320,6 +320,7 @@ int main (int argc, char **argv)
     while (av_read_frame(fmt_ctx, &pkt) >= 0) {
         AVPacket orig_pkt = pkt;
         do {
+            //对packet进行解码，解帧frame.如果是音频，可能会存在每一个packet可能存在多个帧数据。
             ret = decode_packet(&got_frame, 0);
             if (ret < 0)
                 break;
@@ -330,6 +331,7 @@ int main (int argc, char **argv)
     }
 
     /* flush cached frames */
+    //???: 发觉总是需要在解码完成后，把pkt.data设置成null。再解码一次。进行数据清空。
     pkt.data = NULL;
     pkt.size = 0;
     do {
